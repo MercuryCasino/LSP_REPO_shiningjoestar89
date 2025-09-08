@@ -1,0 +1,50 @@
+##Desgin Notes and documentation of testing##
+
+We assumed a couple things.
+1)The products.csv does not include any unecessary data
+2)The column order is always: ProductID, Name, Price, Category
+3)The first row is always the header
+
+As for how the program was designed,we had two main classes:
+>Products class which dealt with categorizing the data in the csv files
+>EtlPipeline class which dealt with reading, transforming and loading the data
+
+The extract function read the file using BufferedReader and a String[] array.
+The transform function took the string array and converted the contents into a product
+while also changing the value of certain things based on the instructions.
+The load function used a BufferedWriter to write these products to the new csv file.
+
+As for testing we ran the code with a normal,empty and missing input to make sure that
+it followed the plan for each situation.
+
+>For normal return the expected transformed_products.csv file
+>For empty(only the header) return the new header row
+>For missing product file, return error
+
+### AI and Internet Source Documentation##
+
+##AI Usage
+>Gemini 2.5 Pro was used to explain the instructions more thoroughly and give a guide
+on how to tackle the project
+Prompt: explain the following file and give a guideline on how to deal with the project
+AI Response Excerpt: //In short, you're building a data processing program in Java. It will read a CSV file containing product information, change that information according to specific rules, and then save the modified data to a new CSV file. This entire process is a basic example of an ETL (Extract, Transform, Load) pipeline.
+
+## The Core Task: ETL Explained ⚙️
+Your program is divided into three main phases, which you should probably implement as separate methods to keep your code clean (e.g., extractData(), transformData(), loadData())...
+//
+This info was used to build the core logic of the program.
+
+After my program was finished I also asked gemini to run through it and see if it saw any issues.
+
+## External Source Usage
+Stackoverflow was used to learn how to read and write to a file in Java: https://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-write-to-it
+
+As for how to write functions i used W3Schools: https://www.w3schools.com/java/java_methods.asp
+
+Lastly Oracle was used to explain OOP programing in Java:https://www.oracle.com/java/technologies/oop.html
+
+
+
+
+
+
