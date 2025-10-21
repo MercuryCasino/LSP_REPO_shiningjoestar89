@@ -1,0 +1,105 @@
+AI was used to add java docs to the code and format and add information to the rationale:
+
+Example use for code:
+
+Prompt:
+Add java docs to this file 
+
+package org.howard.edu.lsp.midterm.question4;
+
+/**
+ * Represents a smart camera that is both networked and battery-powered.
+ */
+public class Camera extends Device implements Networked, BatteryPowered {
+    private int batteryPercent;
+
+
+    public Camera(String id, String location, int initialBattery) {
+        super(id, location);
+        setBatteryPercent(initialBattery); // Use setter to enforce validation
+    }
+
+    @Override
+    public void connect() {
+        setConnected(true);
+    }
+
+    @Override
+    public void disconnect() {
+        setConnected(false);
+    }
+
+    @Override
+    public boolean isConnected() {
+        return super.isConnected();
+    }
+
+    @Override
+    public int getBatteryPercent() {
+        return this.batteryPercent;
+    }
+
+    @Override
+    public void setBatteryPercent(int percent) {
+        if (percent < 0 || percent > 100) {
+            throw new IllegalArgumentException("battery 0..100");
+        }
+        this.batteryPercent = percent;
+    }
+
+    @Override
+    public String getStatus() {
+        String connStatus = isConnected() ? "up" : "down";
+        return "Camera[id=" + getId() + ", loc=" + getLocation() +
+                ", conn=" + connStatus + ", batt=" + batteryPercent + "%]";
+    } 
+
+Answer: 
+	Current code present in file
+	
+
+	
+Example use in Rationale:
+
+Prompt:
+	for these questions:
+	Why is Device defined as an abstract class?
+
+	How do the Networked and BatteryPowered interfaces add behavior to your concrete classes?
+
+	Is this design an example of multiple inheritance in Java? Explain why or why not.
+	
+	based on the code I gave you reformat my answers, for the first one Device is abstract because each class that connects with it
+	has a different implementation for how the status to reported.
+	
+	For the second one They do this because it allows other classes to share common behaviors without being in a hierarchy
+	
+	For the third one It is not because Java does not support multiple inheritance
+
+Answer:
+	Rationale for Smart-Campus Device System Design
+
+Why is Device defined as an abstract class?
+
+The Device class is defined as abstract because it represents a general concept rather than a concrete object you can create directly. 
+It contains an abstract method, getStatus(), which forces all subclasses to provide their own specific implementation for how they report 
+their status. This ensures that every concrete device (like a DoorLock or Camera) has this capability, but it acknowledges that the 
+implementation details will differ for each one.
+
+How do the Networked and BatteryPowered interfaces add behavior to your concrete classes?
+
+The Networked and BatteryPowered interfaces add optional "capabilities" or behaviors to the concrete classes. 
+They define a "contract" for what it means to be networkable or battery-powered. This allows unrelated classes 
+like DoorLock and Camera to share common behaviors (like connect() or getBatteryPercent()) without being forced 
+into a rigid class hierarchy. This makes the design flexible, as you can "mix and match" these capabilities for 
+any new devices created in the future.
+
+Is this design an example of multiple inheritance in Java? Explain why or why not.
+
+No, this design is not an example of multiple inheritance. Java does not support multiple inheritance of classes 
+(a class cannot extend more than one other class). Instead, this design demonstrates a core Java feature where a 
+class can implement multiple interfaces. While a class like DoorLock inherits characteristics from both Device and 
+Networked, it only inherits implementation (code and fields) from the single Device class. From the interfaces, 
+it only inherits the method signatures (the "contract"), which it must then implement itself.
+
+	
